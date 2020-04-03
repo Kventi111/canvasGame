@@ -1,0 +1,19 @@
+{
+  "name": "canvasFirstStep",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "watch": "node ./node_modules/live-server/live-server.js",
+    "start": "node ./node_modules/http-server/bin/http-server",
+    "star2t": "./node_modules/.bin/babel ./gameLoop/src/ --watch  --out-dir ./gameLoop/dist/  --presets @babel/preset-es2015"
+  },
+  "devDependencies": {
+    "http-server": "^0.12.1",
+    "live-server": "^1.2.1",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  },
+  "dependencies": {}
+}
