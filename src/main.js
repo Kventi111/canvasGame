@@ -22,4 +22,4 @@ function gameLoop(timeStamp) {
   requestAnimationFrame(gameLoop)
 }
 
-requestAnimationFrame(gameLoop)
+// requestAnimationFrame(gameLoop)
