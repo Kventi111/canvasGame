@@ -4,6 +4,11 @@ import Ball from './ball'
 import { level1,buildLevel } from './level';
 
 
+const GAME_STATE = {
+  PAUSED: 0,
+  RUNNING: 1
+}
+
 export default class {
 
   constructor(gameWidth,gameHeight) {
@@ -12,13 +17,15 @@ export default class {
   }
 
   start() {
+    this.gameState = GAME_STATE.RUNNING;
+
     this.paddle = new Paddle(this)
     this.ball = new Ball(this);
 
 
     this.bricks = buildLevel(this,level1)
 
-    new InputHandler(this.paddle);
+    new InputHandler(this.paddle,this);
   }
 
 
@@ -33,9 +40,19 @@ export default class {
   }
 
   update(deltaTime) {
+    if (this.gameState == GAME_STATE.PAUSED) return;
+    
     this.paddle.update(deltaTime);
     this.ball.update(deltaTime)
 
     this.bricks.forEach(i => i.update(deltaTime))
+  }
+
+  togglePause() {
+    if (this.gameState == GAME_STATE.PAUSED) {
+      this.gameState = GAME_STATE.RUNNING
+    } else {
+      this.gameState = GAME_STATE.PAUSED
+    }
   }
 }

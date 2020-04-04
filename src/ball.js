@@ -1,4 +1,4 @@
-import { detectCollision } from './collisionDetection';
+import { detectCollision,detectCollision2 } from './collisionDetection';
 
 export default class Ball {
   constructor({ gameWidth, gameHeight, paddle }) {
@@ -11,7 +11,8 @@ export default class Ball {
       y: 10,
     };
 
-    this.size = 16;
+    this.width = 16;
+    this.height = 16;
 
     this.speed = {
       x: 1,
@@ -26,8 +27,8 @@ export default class Ball {
       this.image,
       this.position.x,
       this.position.y,
-      this.size,
-      this.size,
+      this.width,
+      this.height,
     );
   }
 
@@ -43,8 +44,7 @@ export default class Ball {
       this.speed.y = -this.speed.y;
     }
 
-    // console.log(detectCollision(this,this.paddle))
-    if (detectCollision(this,this.paddle)) {
+    if (detectCollision2(this,this.paddle)) {
       this.speed.y = -this.speed.y;
       this.position.y = this.paddle.position.y - this.size;
     }
