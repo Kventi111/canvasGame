@@ -4,14 +4,14 @@ export default class {
     this.gameHeight = gameHeight;
 
     this.width = 100
-    this.hegiht = 20
+    this.height = 20
 
     this.maxSpeed = 40;
     this.speed = 0;
 
     this.position = {
       x: gameWidth / 2 - this.width / 2, 
-      y: gameHeight - this.hegiht - 10
+      y: gameHeight - this.height - 10
     }
   }
 
@@ -19,7 +19,7 @@ export default class {
     const { x,y } = this.position;
 
     ctx.fillStyle = 'red';
-    ctx.fillRect(x,y,this.width,this.hegiht)
+    ctx.fillRect(x,y,this.width,this.height)
   }
 
   update(deltaTime) {
