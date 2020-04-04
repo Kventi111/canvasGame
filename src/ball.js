@@ -1,12 +1,13 @@
 import { detectCollision,detectCollision2 } from './collisionDetection';
 
 export default class Ball {
-  constructor({ gameWidth, gameHeight, paddle }) {
+  constructor({ gameWidth, gameHeight, paddle,decrementLive }) {
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
     this.paddle = paddle;
+    this.decrementLive = decrementLive;
 
-    this.position = {
+    this.position = {  
       x: 200,
       y: 200,
     };
@@ -32,9 +33,17 @@ export default class Ball {
     );
   }
 
+  ballTouchFloor(y) {    
+    if (y > this.paddle.position.y && y > this.gameHeight - this.height) {
+      this.decrementLive()
+    }
+  }
+
   update(deltaTime) {
     this.position.x += this.speed.x;
     this.position.y += this.speed.y;
+
+    this.ballTouchFloor(this.position.y)
 
     if (this.position.x + this.width > this.gameWidth || this.position.x < 0) {
       this.speed.x = -this.speed.x;

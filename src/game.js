@@ -6,14 +6,21 @@ import { level1,buildLevel } from './level';
 
 const GAME_STATE = {
   PAUSED: 0,
-  RUNNING: 1
+  RUNNING: 1,
+  LOSE: 2
 }
+
+let live = 3;
 
 export default class {
 
   constructor(gameWidth,gameHeight) {
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
+
+    this.live = 3;
+
+    this.decrementLive = this.decrementLive.bind(this)
   }
 
   start() {
@@ -32,15 +39,37 @@ export default class {
   draw(ctx) {
     ctx.clearRect(0,0,this.gameWidth,this.gameHeight);
 
-
     this.paddle.draw(ctx)
     this.ball.draw(ctx)
 
     this.bricks.forEach(i =>  i.draw(ctx))
+
+    if (this.gameState === GAME_STATE.PAUSED) {
+      ctx.rect(0,0,this.gameHeight,this.gameWidth)
+      ctx.fillStyle = "rgba(0,0,0,0.5)"
+      ctx.fill()
+
+      ctx.font = "30px Impact"
+      ctx.fillStyle = 'white'
+      ctx.textAlign = 'center'
+      ctx.fillText('PAUSED',this.gameWidth / 2,this.gameHeight / 2)
+    }
+    if (this.gameState === GAME_STATE.LOSE) {
+      ctx.rect(0,0,this.gameHeight,this.gameWidth)
+      ctx.fillStyle = "rgba(0,0,0,0.5)"
+      ctx.fill()
+
+      ctx.font = "30px Impact"
+      ctx.fillStyle = 'red'
+      ctx.textAlign = 'center'
+      ctx.fillText('YOU LOSE',this.gameWidth / 2,this.gameHeight / 2)
+    }
   }
 
   update(deltaTime) {    
-    if (this.gameState == GAME_STATE.PAUSED) return;
+    if (this.gameState == GAME_STATE.PAUSED) return
+    if (this.gameState == GAME_STATE.LOSE) return
+
     this.bricks = this.bricks.filter(i => !i.marked)
     
     this.paddle.update(deltaTime);
@@ -56,4 +85,13 @@ export default class {
       this.gameState = GAME_STATE.PAUSED
     }
   }
+
+  decrementLive() {
+    this.live -= 1;
+
+    if (this.live === 0) {
+      this.gameState = GAME_STATE.LOSE
+    }
+  }
+
 }
