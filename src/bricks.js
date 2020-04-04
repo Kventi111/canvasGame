@@ -7,8 +7,10 @@ export default class Bricks {
 
     this.position = position;
 
-    this.width = 40;
-    this.height = 40;
+    this.width = 20;
+    this.height = 20;
+
+    this.marked = false
   }
 
   draw(ctx) {
@@ -20,6 +22,9 @@ export default class Bricks {
   update() {
     if (detectCollision(this.game.ball,this)) {
       this.game.ball.speed.y = -this.game.ball.speed.y  
+      this.game.ball.speed.x = -this.game.ball.speed.x 
+
+      this.marked = true
     }
   }
 }

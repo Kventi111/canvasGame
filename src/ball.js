@@ -7,8 +7,8 @@ export default class Ball {
     this.paddle = paddle;
 
     this.position = {
-      x: 10,
-      y: 10,
+      x: 200,
+      y: 200,
     };
 
     this.width = 16;

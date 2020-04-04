@@ -39,8 +39,9 @@ export default class {
     this.bricks.forEach(i =>  i.draw(ctx))
   }
 
-  update(deltaTime) {
+  update(deltaTime) {    
     if (this.gameState == GAME_STATE.PAUSED) return;
+    this.bricks = this.bricks.filter(i => !i.marked)
     
     this.paddle.update(deltaTime);
     this.ball.update(deltaTime)
