@@ -7,10 +7,9 @@ import { level1,buildLevel } from './level';
 const GAME_STATE = {
   PAUSED: 0,
   RUNNING: 1,
-  LOSE: 2
+  LOSE: 2,
+  WIN: 3
 }
-
-let live = 3;
 
 export default class {
 
@@ -64,14 +63,29 @@ export default class {
       ctx.textAlign = 'center'
       ctx.fillText('YOU LOSE',this.gameWidth / 2,this.gameHeight / 2)
     }
+    if (this.gameState === GAME_STATE.WIN) {
+      ctx.rect(0,0,this.gameHeight,this.gameWidth)
+      ctx.fillStyle = "rgba(0,0,0,0.5)"
+      ctx.fill()
+
+      ctx.font = "30px Impact"
+      ctx.fillStyle = 'white'
+      ctx.textAlign = 'center'
+      ctx.fillText('YOU WIN',this.gameWidth / 2,this.gameHeight / 2)
+    }
   }
 
   update(deltaTime) {    
     if (this.gameState == GAME_STATE.PAUSED) return
     if (this.gameState == GAME_STATE.LOSE) return
+    if (this.gameState == GAME_STATE.WIN) return
 
     this.bricks = this.bricks.filter(i => !i.marked)
-    
+
+    if (this.bricks.length == 0) {
+      console.log('win')
+      this.gameState = GAME_STATE.WIN
+    }
     this.paddle.update(deltaTime);
     this.ball.update(deltaTime)
 
