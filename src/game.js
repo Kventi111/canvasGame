@@ -16,6 +16,7 @@ export default class {
   constructor(gameWidth,gameHeight) {
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
+    this.heartImage = document.getElementById('img_heart')
 
     this.live = 3;
 
@@ -28,6 +29,11 @@ export default class {
     this.paddle = new Paddle(this)
     this.ball = new Ball(this);
 
+    this.lives = [
+      this.heartImage,
+      this.heartImage,
+      this.heartImage,
+    ]
 
     this.bricks = buildLevel(this,level1)
 
@@ -37,6 +43,10 @@ export default class {
 
   draw(ctx) {
     ctx.clearRect(0,0,this.gameWidth,this.gameHeight);
+
+    this.lives.forEach((image,index) => {
+      ctx.drawImage(image,(index * 20) + 10,10,16,16)
+    })
 
     this.paddle.draw(ctx)
     this.ball.draw(ctx)
@@ -101,8 +111,10 @@ export default class {
   }
 
   decrementLive() {
-    this.live -= 1;
 
+    this.live -= 1;
+    this.lives.pop()
+    
     if (this.live === 0) {
       this.gameState = GAME_STATE.LOSE
     }
