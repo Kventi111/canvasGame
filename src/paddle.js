@@ -6,20 +6,20 @@ export default class {
     this.width = 100
     this.height = 20
 
-    this.maxSpeed = 40;
+    this.maxSpeed = 60;
     this.speed = 0;
 
     this.position = {
       x: gameWidth / 2 - this.width / 2, 
       y: gameHeight - this.height - 10
-    }
+    }    
   }
 
   draw(ctx) {
     const { x,y } = this.position;
 
     ctx.fillStyle = 'red';
-    ctx.fillRect(x,y,this.width,this.height)
+    ctx.fillRect(x,y,this.width,this.height)    
   }
 
   update(deltaTime) {

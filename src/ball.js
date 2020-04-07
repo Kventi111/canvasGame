@@ -16,8 +16,8 @@ export default class Ball {
     this.height = 16;
 
     this.speed = {
-      x: 1,
-      y: 2,
+      x: 30,
+      y: 40,
     };
 
     this.image = document.getElementById('img_ball');
@@ -40,8 +40,8 @@ export default class Ball {
   }
 
   update(deltaTime) {
-    this.position.x += this.speed.x;
-    this.position.y += this.speed.y;
+    this.position.x += this.speed.x / deltaTime;
+    this.position.y += this.speed.y / deltaTime;
 
     this.ballTouchFloor(this.position.y)
 
@@ -56,6 +56,18 @@ export default class Ball {
     if (detectCollision(this,this.paddle)) {
       this.speed.y = -this.speed.y;
       this.position.y = this.paddle.position.y - this.height;
+
+      if (this.position.x < this.paddle.position.x + (this.paddle.width / 2) && this.paddle.speed < 0) {
+        console.log('left');
+        
+        this.speed.x = -20 + -(1 * (this.paddle.position.x + this.paddle.width / 2 - this.position.x))
+      }
+  
+      if (this.position.x > this.paddle.position.x + (this.paddle.width / 2) && this.paddle.speed > 0) {
+        console.log('right');
+  
+        this.speed.x = 20 + (1 * Math.abs(this.paddle.position.x + this.paddle.width / 2 - this.position.x))
+      }
     }
   }
 }

@@ -26,7 +26,7 @@ export default class {
   start() {
     this.gameState = GAME_STATE.RUNNING;
 
-    this.paddle = new Paddle(this)
+    this.paddle = new Paddle(this);
     this.ball = new Ball(this);
 
     this.lives = [
@@ -99,6 +99,9 @@ export default class {
     this.paddle.update(deltaTime);
     this.ball.update(deltaTime)
 
+    // console.log(this.ball);
+    // console.log(this.paddle);
+    
     this.bricks.forEach(i => i.update(deltaTime))
   }
 
