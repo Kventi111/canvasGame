@@ -98,8 +98,10 @@ export default class {
       ctx.fillText('Нажмите "START GAME" чтобы начать игру',this.gameWidth / 2,this.gameHeight - 20)  
     }
 
-    if (this.gameState == GAME_STATE.RUNNING) {
+    if (this.gameState == GAME_STATE.RUNNING) {      
       ctx.clearRect(0,0,this.gameWidth,this.gameHeight);
+
+      ctx.drawImage(document.getElementById('img_background'),0,0,this.gameWidth,this.gameHeight)
 
       this.lives.forEach((image,index) => {
         ctx.drawImage(image,(index * 20) + 10,10,16,16)

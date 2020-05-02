@@ -21,7 +21,7 @@ export default class {
   draw(ctx) {
     const { x,y } = this.position;
 
-    ctx.fillStyle = 'red';
+    ctx.fillStyle = '#639bff';
     ctx.fillRect(x,y,this.width,this.height)    
   }
 
