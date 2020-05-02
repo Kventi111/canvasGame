@@ -3,7 +3,7 @@ import { detectCollision } from './collisionDetection';
 export default class Bricks {
   constructor(game, position) {
     this.game = game;
-    this.image = document.getElementById('img_bricks');
+    this.image = document.getElementById('img_sprite');
 
     this.position = position;
 
@@ -17,7 +17,7 @@ export default class Bricks {
   draw(ctx) {
     const { x, y } = this.position;
 
-    ctx.drawImage(this.image, x, y, this.width, this.height);
+    ctx.drawImage(this.image, 8,8,32,16,x,y,50,30);
   }
 
   update() {
