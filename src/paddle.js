@@ -11,7 +11,7 @@ export default class {
 
     this.position = {
       x: gameWidth / 2 - this.width / 2, 
-      y: gameHeight - this.height - 10
+      y: gameHeight - this.height - 80
     }    
 
     console.log({ ball });

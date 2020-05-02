@@ -36,7 +36,7 @@ export default class Ball {
   resetBallPosition() {
     this.paddle.position = {
       x: this.gameWidth / 2 - this.paddle.width / 2, 
-      y: this.gameHeight - this.paddle.height - 10
+      y: this.gameHeight - this.paddle.height - 80
     }    
     this.position = {  
       x: this.paddle.position.x + this.paddle.width / 2,
@@ -58,8 +58,8 @@ export default class Ball {
   startBallMoving() {
     const moovingSide = Math.floor(Math.random() * 10) % 2 === 0;
 
-    this.speed.x = moovingSide ? -30 : 30 
-    this.speed.y = 20
+    this.speed.x = moovingSide ? -50 : 50 
+    this.speed.y = 40
 
     console.log({
       x: this.speed.x,

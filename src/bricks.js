@@ -7,8 +7,8 @@ export default class Bricks {
 
     this.position = position;
 
-    this.width = 33;
-    this.height = 33;
+    this.width = 50;
+    this.height = 50; 
 
     this.marked = false;
     this.live = 1;

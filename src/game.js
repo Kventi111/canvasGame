@@ -69,7 +69,7 @@ export default class {
 
   draw(ctx) {
     if (this.gameState === GAME_STATE.START_MENU) {
-      ctx.rect(0,0,this.gameHeight,this.gameWidth)
+      ctx.rect(0,0,this.gameWidth,this.gameHeight)
       ctx.fillStyle = "rgba(0,0,0,0.5)"
       ctx.fill()
   
@@ -112,7 +112,7 @@ export default class {
     }
 
     if (this.gameState === GAME_STATE.PAUSED) {
-      ctx.rect(0,0,this.gameHeight,this.gameWidth)
+      ctx.rect(0,0,this.gameWidth,this.gameHeight)
       ctx.fillStyle = "rgba(0,0,0,0.5)"
       ctx.fill()
 
@@ -122,7 +122,7 @@ export default class {
       ctx.fillText('PAUSED',this.gameWidth / 2,this.gameHeight / 2)
     }
     if (this.gameState === GAME_STATE.LOSE) {
-      ctx.rect(0,0,this.gameHeight,this.gameWidth)
+      ctx.rect(0,0,this.gameWidth,this.gameHeight)
       ctx.fillStyle = "rgba(0,0,0,0.5)"
       ctx.fill()
 
@@ -132,7 +132,7 @@ export default class {
       ctx.fillText('YOU LOSE',this.gameWidth / 2,this.gameHeight / 2)
     }
     if (this.gameState === GAME_STATE.WIN) {
-      ctx.rect(0,0,this.gameHeight,this.gameWidth)
+      ctx.rect(0,0,this.gameWidth,this.gameHeight)
       ctx.fillStyle = "rgba(0,0,0,0.5)"
       ctx.fill()
 
