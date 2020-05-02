@@ -37,7 +37,7 @@ export default class {
 
     this.bricks = buildLevel(this,level1)
 
-    new InputHandler(this.paddle,this);
+    new InputHandler(this.paddle,this,this.ball);
   }
 
 

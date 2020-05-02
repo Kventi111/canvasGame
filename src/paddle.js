@@ -1,5 +1,5 @@
 export default class {
-  constructor({gameWidth,gameHeight}) {
+  constructor({gameWidth,gameHeight,ball}) {
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
 
@@ -13,6 +13,9 @@ export default class {
       x: gameWidth / 2 - this.width / 2, 
       y: gameHeight - this.height - 10
     }    
+
+    console.log({ ball });
+    
   }
 
   draw(ctx) {

@@ -7,17 +7,17 @@ export default class Ball {
     this.paddle = paddle;
     this.decrementLive = decrementLive;
 
-    this.position = {  
-      x: 200,
-      y: 200,
-    };
-
     this.width = 16;
     this.height = 16;
 
+    this.position = {  
+      x: this.paddle.position.x + this.paddle.width / 2,
+      y: this.paddle.position.y - this.height,
+    };
+
     this.speed = {
-      x: 30,
-      y: 40,
+      x: 0,
+      y: 0,
     };
 
     this.image = document.getElementById('img_ball');
@@ -33,10 +33,45 @@ export default class Ball {
     );
   }
 
+  resetBallPosition() {
+    this.paddle.position = {
+      x: this.gameWidth / 2 - this.paddle.width / 2, 
+      y: this.gameHeight - this.paddle.height - 10
+    }    
+    this.position = {  
+      x: this.paddle.position.x + this.paddle.width / 2,
+      y: this.paddle.position.y - this.height,
+    };
+    this.speed = {
+      x: 0,
+      y: 0
+    }
+  }
+
   ballTouchFloor(y) {    
     if (y > this.paddle.position.y && y > this.gameHeight - this.height) {
       this.decrementLive()
+      this.resetBallPosition()
     }
+  }
+
+  startBallMoving() {
+    const moovingSide = Math.floor(Math.random() * 10) % 2 === 0;
+
+    this.speed.x = moovingSide ? -30 : 30 
+    this.speed.y = 20
+
+    console.log({
+      x: this.speed.x,
+      y: this.speed.y,
+    })
+  }
+
+  moovingBallWithPaddle() {
+    this.position = {  
+      x: this.paddle.position.x + this.paddle.width / 2,
+      y: this.paddle.position.y - this.height,
+    };
   }
 
   update(deltaTime) {
@@ -44,6 +79,8 @@ export default class Ball {
     this.position.y += this.speed.y / deltaTime;
 
     this.ballTouchFloor(this.position.y)
+
+    if (this.speed.x === 0 || this.speed.y === 0) this.moovingBallWithPaddle()
 
     if (this.position.x + this.width > this.gameWidth || this.position.x < 0) {
       this.speed.x = -this.speed.x;
