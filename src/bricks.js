@@ -25,10 +25,7 @@ export default class Bricks {
       this.game.ball.speed.y = -this.game.ball.speed.y;
       this.game.ball.speed.x = -this.game.ball.speed.x;
 
-      this.live -= 1;
-      if (this.live === 0) {
-        this.marked = true;
-      }
+      this.marked = true;
     }
   }
 }
