@@ -8,7 +8,8 @@ const GAME_STATE = {
   PAUSED: 0,
   RUNNING: 1,
   LOSE: 2,
-  WIN: 3
+  WIN: 3,
+  START_MENU: 4
 }
 
 export default class {
@@ -21,6 +22,31 @@ export default class {
     this.live = 3;
 
     this.decrementLive = this.decrementLive.bind(this)
+    
+    this.highlighter = 1
+  }
+
+  menuUp() {
+    this.highlighter -= 1
+
+    if (this.highlighter == 0) {
+      this.highlighter = 1
+    }
+
+  }
+
+  menuDown() {
+    this.highlighter += 1
+
+    if (this.highlighter >= 2) {
+      this.highlighter = 2
+    }
+  }
+
+  startMenu() {
+    this.gameState = GAME_STATE.START_MENU
+    new InputHandler({game: this,gameState: this.gameState});
+
   }
 
   start() {
@@ -37,21 +63,53 @@ export default class {
 
     this.bricks = buildLevel(this,level1)
 
-    new InputHandler(this.paddle,this,this.ball);
+    new InputHandler({paddle: this.paddle,game: this, ball: this.ball,gameState: this.gameState});
   }
 
 
   draw(ctx) {
-    ctx.clearRect(0,0,this.gameWidth,this.gameHeight);
+    if (this.gameState === GAME_STATE.START_MENU) {
+      ctx.rect(0,0,this.gameHeight,this.gameWidth)
+      ctx.fillStyle = "rgba(0,0,0,0.5)"
+      ctx.fill()
+  
+      ctx.font = "30px Impact"
+      ctx.textAlign = 'center'
+      ctx.fillStyle = 'white'
+  
+      if (this.highlighter == 1) {
+        ctx.fillStyle = 'red'
+      }
+      
+      ctx.fillText('START GAME',this.gameWidth / 2,this.gameHeight / 2)
+  
+      ctx.fillStyle = 'white'
+  
+      if (this.highlighter == 2) {
+        ctx.fillStyle = 'red'
+      }
+      
+      ctx.fillText('test 1',this.gameWidth / 2,this.gameHeight / 2 + 30)
+  
+      ctx.fillStyle = 'white'
+  
+      ctx.font = "18px Impact"
+      ctx.textAlign = 'center'
+      ctx.fillText('Нажмите "START GAME" чтобы начать игру',this.gameWidth / 2,this.gameHeight - 20)  
+    }
 
-    this.lives.forEach((image,index) => {
-      ctx.drawImage(image,(index * 20) + 10,10,16,16)
-    })
+    if (this.gameState == GAME_STATE.RUNNING) {
+      ctx.clearRect(0,0,this.gameWidth,this.gameHeight);
 
-    this.paddle.draw(ctx)
-    this.ball.draw(ctx)
-
-    this.bricks.forEach(i =>  i.draw(ctx))
+      this.lives.forEach((image,index) => {
+        ctx.drawImage(image,(index * 20) + 10,10,16,16)
+      })
+  
+      this.paddle.draw(ctx)
+      this.ball.draw(ctx)
+  
+      this.bricks.forEach(i =>  i.draw(ctx))
+    }
 
     if (this.gameState === GAME_STATE.PAUSED) {
       ctx.rect(0,0,this.gameHeight,this.gameWidth)
@@ -89,6 +147,7 @@ export default class {
     if (this.gameState == GAME_STATE.PAUSED) return
     if (this.gameState == GAME_STATE.LOSE) return
     if (this.gameState == GAME_STATE.WIN) return
+    if (this.gameState == GAME_STATE.START_MENU) return
 
     this.bricks = this.bricks.filter(i => !i.marked)
 

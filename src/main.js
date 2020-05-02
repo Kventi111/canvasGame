@@ -10,7 +10,7 @@ let lastTime = 0;
 
 const game = new Game(GAME_WIDTH,GAME_HEIGHT);
 
-game.start()
+game.startMenu()
 
 function gameLoop(timeStamp) {
   let deltaTime =  timeStamp - lastTime;
