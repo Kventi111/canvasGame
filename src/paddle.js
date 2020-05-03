@@ -2,9 +2,10 @@ export default class {
   constructor({gameWidth,gameHeight,ball}) {
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
+    this.image = document.getElementById('img_sprite');
 
     this.width = 100
-    this.height = 20
+    this.height = 30
 
     this.maxSpeed = 60;
     this.speed = 0;
@@ -21,8 +22,7 @@ export default class {
   draw(ctx) {
     const { x,y } = this.position;
 
-    ctx.fillStyle = '#639bff';
-    ctx.fillRect(x,y,this.width,this.height)    
+    ctx.drawImage(this.image, 8,150,65,20,x,y,this.width,this.height);
   }
 
   update(deltaTime) {

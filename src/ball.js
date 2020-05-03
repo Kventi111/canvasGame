@@ -6,9 +6,10 @@ export default class Ball {
     this.gameHeight = gameHeight;
     this.paddle = paddle;
     this.decrementLive = decrementLive;
+    this.sound = document.getElementById('wall_hit')
 
-    this.width = 16;
-    this.height = 16;
+    this.width = 18;
+    this.height = 18;
 
     this.position = {  
       x: this.paddle.position.x + this.paddle.width / 2,
@@ -20,16 +21,20 @@ export default class Ball {
       y: 0,
     };
 
-    this.image = document.getElementById('img_ball');
+    this.image = document.getElementById('img_sprite');
   }
 
   draw(ctx) {
     ctx.drawImage(
       this.image,
+      66,
+      136,
+      8,
+      8,
       this.position.x,
       this.position.y,
-      this.width,
       this.height,
+      this.width
     );
   }
 
@@ -52,6 +57,7 @@ export default class Ball {
     if (y > this.paddle.position.y && y > this.gameHeight - this.height) {
       this.decrementLive()
       this.resetBallPosition()
+      this.sound.play()
     }
   }
 
@@ -83,10 +89,12 @@ export default class Ball {
     if (this.speed.x === 0 || this.speed.y === 0) this.moovingBallWithPaddle()
 
     if (this.position.x + this.width > this.gameWidth || this.position.x < 0) {
+      this.sound.play()
       this.speed.x = -this.speed.x;
     }
 
     if (this.position.y + this.height > this.gameHeight || this.position.y < 0) {
+      this.sound.play()
       this.speed.y = -this.speed.y;
     }
 

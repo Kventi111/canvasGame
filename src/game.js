@@ -18,6 +18,7 @@ export default class {
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
     this.heartImage = document.getElementById('img_heart')
+    this.music = document.getElementById('music')
 
     this.live = 3;
 
@@ -45,8 +46,9 @@ export default class {
 
   startMenu() {
     this.gameState = GAME_STATE.START_MENU
+    // this.music.play()
+    
     new InputHandler({game: this,gameState: this.gameState});
-
   }
 
   start() {

@@ -4,6 +4,7 @@ export default class Bricks {
   constructor(game, position) {
     this.game = game;
     this.image = document.getElementById('img_sprite');
+    this.sound = document.getElementById('brick_hit')
 
     this.position = position;
 
@@ -26,6 +27,8 @@ export default class Bricks {
       this.game.ball.speed.x = -this.game.ball.speed.x;
 
       this.marked = true;
+
+      this.sound.play()
     }
   }
 }
