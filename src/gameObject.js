@@ -28,14 +28,12 @@ export default class GameObject {
     const { gameWidth,gameHeight } = this.game;
 
     if (x > gameWidth - this.width || x <= 0) {
-        return true
+        this.vx = -this.vx
     }
 
     if (y > gameHeight - this.height || y <= 0) {
-        return true
+        this.vy = -this.vy
     }
-
-    return false
   }
 
   update(deltaTime) {
@@ -44,10 +42,7 @@ export default class GameObject {
     //     this.vy = -this.vy
     // }
 
-    if (this.boundaryBounce(this.x,this.y)) {
-        this.vx = -this.vx
-        this.vy = -this.vy
-    }
+    this.boundaryBounce(this.x,this.y)
     //Move with set velocity
     this.x += this.vx * deltaTime;
     this.y += this.vy * deltaTime;

@@ -29,25 +29,7 @@ export function detectCollisions(gameObjects) {
         obj1.isColliding = true;
         obj2.isColliding = true;
 
-        const vCollision = getVCollision(obj1, obj2);
-        const distance = getDistance(obj1, obj2);
-        const vCollisionNorm = getVCollisionNorm(vCollision, distance);
-        const vRelativeVelocity = getVRelativeVelocity(obj1, obj2);
-
-        let speed =
-          vRelativeVelocity.x * vCollisionNorm.x +
-          vRelativeVelocity.y * vCollisionNorm.y;
-
-        console.log({ speed });
-
-        if (speed < 0) {
-          break;
-        }
-
-        obj1.vx -= speed * vCollisionNorm.x;
-        obj1.vy -= speed * vCollisionNorm.y;
-        obj2.vx += speed * vCollisionNorm.x;
-        obj2.vy += speed * vCollisionNorm.y;
+        resolveCollision(obj1,obj2)
       }
     }
   }
@@ -97,4 +79,27 @@ function getVRelativeVelocity(obj1, obj2) {
   // console.log({ vRelativeVelocity });
 
   return vRelativeVelocity;
+}
+
+
+export function resolveCollision(obj1,obj2) {
+    const vCollision = getVCollision(obj1, obj2);
+    const distance = getDistance(obj1, obj2);
+    const vCollisionNorm = getVCollisionNorm(vCollision, distance);
+    const vRelativeVelocity = getVRelativeVelocity(obj1, obj2);
+
+    let speed =
+      vRelativeVelocity.x * vCollisionNorm.x +
+      vRelativeVelocity.y * vCollisionNorm.y;
+
+
+    if (speed < 0) {
+      return;
+    }
+
+
+    obj1.vx -= speed * vCollisionNorm.x;
+    obj1.vy -= speed * vCollisionNorm.y;
+    obj2.vx += speed * vCollisionNorm.x;
+    obj2.vy += speed * vCollisionNorm.y;
 }
