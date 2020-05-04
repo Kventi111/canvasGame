@@ -1,10 +1,12 @@
 import Game from './game';
 
+import {GAME_WIDTH,GAME_HEIGHT} from './constants'
+
 const c = document.querySelector('#canvas');
 const ctx = c.getContext('2d');
 
-const GAME_WIDTH = 400;
-const GAME_HEIGHT = 400;
+ctx.canvas.width = GAME_WIDTH;
+ctx.canvas.height = GAME_HEIGHT;
 
 let lastTime = 0;
 
@@ -22,4 +24,4 @@ function gameLoop(timeStamp) {
   requestAnimationFrame(gameLoop)
 }
 
-// requestAnimationFrame(gameLoop)
+requestAnimationFrame(gameLoop)
