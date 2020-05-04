@@ -1,5 +1,7 @@
 import GameObject from "./gameObject";
 
+import { detectCollisions } from "./utils";
+
 export default class {
   constructor(gameWidth, gameHeight) {
     this.gameWidth = gameWidth;
@@ -9,21 +11,32 @@ export default class {
   start() {
     this.gameObjects = [
       new GameObject({
-        x: 200,
-        y: 200,
-        vx: 0.02,
-        vy: 0.01,
+        x: this.gameWidth / 2,
+        y: 10,
+        vx: 0.0,
+        vy: 0.1,
         width: 100,
         height: 50,
+        game: this
       }),
       new GameObject({
-        x: 400,
-        y: 400,
-        vx: -0.01,
-        vy: -0.02,
+        x: this.gameWidth / 2,
+        y: this.gameHeight - 100,
+        vx: 0.0,
+        vy: -0.3,
         width: 100,
         height: 50,
+        game: this
       }),
+      // new GameObject({
+      //   x: this.gameWidth / 2,
+      //   y: this.gameHeight - 100,
+      //   vx: 0.0,
+      //   vy: -0.3,
+      //   width: 100,
+      //   height: 50,
+      //   game: this
+      // }),
     ];
   }
 
@@ -34,11 +47,11 @@ export default class {
   // }
 
   update(deltaTime, ctx) {
-    this.gameObjects.forEach(obj => obj.update(deltaTime));
+    detectCollisions(this.gameObjects);
+    this.gameObjects.forEach((obj) => obj.update(deltaTime));
 
     ctx.clearRect(0, 0, this.gameWidth, this.gameHeight);
 
-    this.gameObjects.forEach(obj => obj.draw(ctx));
-
+    this.gameObjects.forEach((obj) => obj.draw(ctx));
   }
 }
