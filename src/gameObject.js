@@ -1,27 +1,30 @@
 export default class GameObject {
-  constructor({ x, y, dx, dy, height, width, color, weight }) {
+  constructor({ x, y, vx, vy, height, width, color, weight }) {
     this.x = x;
     this.y = y;
 
-    this.dx = dx;
-    this.dy = dy;
+    this.vx = vx;
+    this.vy = vy;
 
     this.width = width;
     this.height = height;
     this.weight = weight;
 
-    this.color = color;    
+    this.color = color;
 
-    console.log(this.width);
-    console.log(this.height);
+    this.isColliding = false;
   }
 
   draw(ctx) {
     const { x, y, width, height } = this;
 
-    ctx.fillStyle = 'red';
-    ctx.fillRect(x,y,width,height) 
+    ctx.fillStyle = this.isColliding ? "#ff8080" : "#0099b0";
+    ctx.fillRect(x, y, width, height);
   }
 
-  update() {}
+  update(deltaTime) {
+    //Move with set velocity
+    this.x += this.vx * deltaTime;
+    this.y += this.vy * deltaTime;
+  }
 }
