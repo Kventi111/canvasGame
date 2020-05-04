@@ -81,25 +81,29 @@ function getVRelativeVelocity(obj1, obj2) {
   return vRelativeVelocity;
 }
 
+function calculateImpulse(speed,obj1Mass,obj2Mass) {
+    return 2 * speed / (obj1Mass + obj2Mass);
+}
 
 export function resolveCollision(obj1,obj2) {
     const vCollision = getVCollision(obj1, obj2);
     const distance = getDistance(obj1, obj2);
     const vCollisionNorm = getVCollisionNorm(vCollision, distance);
     const vRelativeVelocity = getVRelativeVelocity(obj1, obj2);
-
+    
     let speed =
       vRelativeVelocity.x * vCollisionNorm.x +
       vRelativeVelocity.y * vCollisionNorm.y;
-
 
     if (speed < 0) {
       return;
     }
 
+    let impulse = calculateImpulse(speed,obj1.weight,obj2.weight);
 
-    obj1.vx -= speed * vCollisionNorm.x;
-    obj1.vy -= speed * vCollisionNorm.y;
-    obj2.vx += speed * vCollisionNorm.x;
-    obj2.vy += speed * vCollisionNorm.y;
+
+    obj1.vx -= (impulse * obj2.weight * vCollisionNorm.x);
+    obj1.vy -= (impulse * obj2.weight * vCollisionNorm.y);
+    obj2.vx += (impulse * obj1.weight * vCollisionNorm.x);
+    obj2.vy += (impulse * obj1.weight * vCollisionNorm.y);
 }

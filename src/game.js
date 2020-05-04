@@ -17,15 +17,17 @@ export default class {
         vy: 0.1,
         width: 100,
         height: 50,
+        weight: 10,
         game: this
       }),
       new GameObject({
         x: this.gameWidth / 2,
         y: this.gameHeight - 100,
         vx: 0.0,
-        vy: -0.3,
+        vy: -0.1,
         width: 100,
         height: 50,
+        weight: 0.01,
         game: this
       }),
       new GameObject({
@@ -35,33 +37,37 @@ export default class {
         vy: -0.3,
         width: 100,
         height: 50,
+        weight: 0.01,
         game: this
       }),
       new GameObject({
         x: 550,
         y: 600,
         vx: 0.0,
-        vy: -0.3,
+        vy: -0.1,
         width: 100,
         height: 50,
+        weight: 0.01,
         game: this
       }),
       new GameObject({
         x: 500,
         y: 200,
         vx: 0.0,
-        vy: -0.3,
+        vy: -0.1,
         width: 100,
         height: 50,
+        weight: 0.01,
         game: this
       }),
       new GameObject({
         x: 500,
         y: 500,
         vx: 0.0,
-        vy: -0.3,
+        vy: -0.1,
         width: 100,
         height: 50,
+        weight: 0.01,
         game: this
       }),
     ];
