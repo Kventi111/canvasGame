@@ -4,9 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "watch": "node ./node_modules/live-server/live-server.js",
-    "start": "node ./node_modules/http-server/bin/http-server",
-    "star2t": "./node_modules/.bin/babel ./gameLoop/src/ --watch  --out-dir ./gameLoop/dist/  --presets @babel/preset-es2015"
+    "start": "webpack-dev-server"
   },
   "devDependencies": {
     "http-server": "^0.12.1",
