@@ -8,8 +8,8 @@ export default class Ball {
     this.decrementLive = decrementLive;
     this.sound = document.getElementById('wall_hit')
 
-    this.width = 18;
-    this.height = 18;
+    this.width = 14;
+    this.height = 14;
 
     this.position = {  
       x: this.paddle.position.x + this.paddle.width / 2,
@@ -20,6 +20,8 @@ export default class Ball {
       x: 0,
       y: 0,
     };
+
+    this.slowBall = false
 
     this.image = document.getElementById('img_sprite');
   }
@@ -36,6 +38,8 @@ export default class Ball {
       this.height,
       this.width
     );
+    ctx.strokeStyle = 'red';
+    ctx.strokeRect(this.position.x,this.position.y,this.width,this.height)
   }
 
   resetBallPosition() {
@@ -64,13 +68,28 @@ export default class Ball {
   startBallMoving() {
     const moovingSide = Math.floor(Math.random() * 10) % 2 === 0;
 
-    this.speed.x = moovingSide ? -50 : 50 
+    this.speed.x = moovingSide ? -50 : 50
     this.speed.y = 40
+  }
 
-    console.log({
-      x: this.speed.x,
-      y: this.speed.y,
-    })
+  slowMotion() {
+    this.slowBall = !this.slowBall;
+
+    let slowSpeed = {}
+    
+    if (this.slowBall) {
+      slowSpeed = {
+        x: this.speed.x < 0 ? -1 : 1,
+        y: this.speed.y < 0 ? -2 : 2
+      }
+    }else {
+      slowSpeed = {
+        x: this.speed.x < 0 ? -50 : 50,
+        y: this.speed.y < 0 ? -40 : 40
+      }
+    }
+
+    this.speed = {...slowSpeed}
   }
 
   moovingBallWithPaddle() {
@@ -103,14 +122,10 @@ export default class Ball {
       this.position.y = this.paddle.position.y - this.height;
 
       if (this.position.x < this.paddle.position.x + (this.paddle.width / 2) && this.paddle.speed < 0) {
-        console.log('left');
-        
         this.speed.x = -20 + -(1 * (this.paddle.position.x + this.paddle.width / 2 - this.position.x))
       }
   
       if (this.position.x > this.paddle.position.x + (this.paddle.width / 2) && this.paddle.speed > 0) {
-        console.log('right');
-  
         this.speed.x = 20 + (1 * Math.abs(this.paddle.position.x + this.paddle.width / 2 - this.position.x))
       }
     }

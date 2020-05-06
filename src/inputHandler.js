@@ -3,7 +3,7 @@ export default class InputHandler {
     document.addEventListener('keydown',e => {
       const { keyCode } = e;
 
-      console.log({ keyCode });
+      // console.log({ keyCode });
       
       if (gameState == 4) {
         switch(keyCode) {
@@ -34,6 +34,8 @@ export default class InputHandler {
           case 32:
             ball.startBallMoving()
             break;
+          case 88:
+            ball.slowMotion()
           default:
             break;
         }
